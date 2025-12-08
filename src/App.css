@@ -1,9 +1,112 @@
 /* ====================
 Variables
 ==================== */
-
-/* --- Menú Navegación --- */
+:root {
+  --size-img-github: 2.2rem;
+  --container-width: 1200px;
+}
 
 /* ====================
 Estilos del sitio
 ==================== */
+.header h1 {
+  margin: 0;
+  text-align: center;
+}
+
+main {
+  padding: 2rem;
+  padding-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: var(--container-width);
+  min-height: 100vh;
+  text-align: center;
+}
+
+main > a img {
+  height: var(--size-img-github);
+  width: var(--size-img-github);
+}
+
+/* --- Validaciones de Formulario --- */
+.formulario-contacto {
+  --form-ok-color: #4caf50;
+  --form-error-color: #f44336;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+/* El (*) significa todo */
+.formulario-contacto > * {
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 100%;
+}
+
+.formulario-contacto textarea {
+  resize: none;
+}
+
+.formulario-contacto legend,
+.formulario-contacto-respuesta {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+.formulario-contacto input[type="submit"] {
+  width: 50%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.formulario-contacto *::placeholder {
+  color: #000;
+}
+
+.formulario-contacto [required]:valid {
+  border: thin solid var(--form-ok-color);
+}
+
+.formulario-contacto [required]:invalid {
+  border: thin solid var(--form-error-color);
+}
+
+.formulario-contacto-error {
+  margin-top: -1rem;
+  font-size: 80%;
+  background-color: var(--form-error-color);
+  color: #fff;
+  transition: all 800ms ease;
+}
+
+.formulario-contacto-error.is-active {
+  display: block;
+  animation: mostrar-mensaje 1s 1 normal 0s ease-out both;
+}
+
+.none {
+  display: none;
+}
+
+@keyframes mostrar-mensaje {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
