@@ -19,12 +19,43 @@ const contactoInicial = {
 const ValidacionesDeFormulario = () => {
   const [formulario, setFormulario] = useState(contactoInicial);
 
+  const validaciones = (e) => {
+    const { name, value } = e.target; // Destructurando nuestro objeto
+    let error; // Variable que controla el mensaje del atributo title de los inputs
+
+    const patron = e.target.pattern || e.target.dataset.pattern; // Obteniendo el patron de los inputs o del data-pattern
+
+    // Validación de input con patrón y que tienen contenido
+    if (patron && value !== "") {
+      let regex = new RegExp(patron);
+      !regex.exec(value) // Si la expresión regular valida que el valor de nuestros inpust no es correcto
+        ? (error = e.target.title) // debe mostrar el mensaje personalizado del atributo title de HTML de los Inputs
+        : (error = null); // De lo contario, que no haga nada, es decir, el valor que ingresa el usuario es correcto.
+    }
+
+    // Validación de input sin patrón para el textarea o campos vacíos
+    if (!patron) {
+      value === "" ? (error = e.target.title) : (error = null);
+    }
+
+    // Actualizando el estado de errores de forma inmutable
+    setFormulario((prevFormulario) => ({
+      ...prevFormulario,
+      errores: {
+        ...prevFormulario.errores, // Copia los errores de los otros campos
+        [name]: error, // Actuliza solo el error del campo actual
+      },
+    }));
+  };
+
   // --- Manejando datos de estado ---
   const manejarCambios = (e) => {
     setFormulario({
       ...formulario, // 1. Copia inmutable del estado actual
       [e.target.name]: e.target.value, // 2. Actualiza SOLO el campo que disparó el evento (usando el atributo 'name')
     });
+
+    validaciones(e);
   };
 
   const manejarEnvio = (e) => {
@@ -53,17 +84,30 @@ const ValidacionesDeFormulario = () => {
           value={formulario.nombre}
           onChange={manejarCambios}
         />
-        {/* Podemos trabajar expresiones regulares desde html, para ello usamos el atributo "pattern" */}
+        <span
+          className={`formulario-contacto-error ${
+            formulario.errores.nombre ? "is-active" : "none"
+          }`}
+        >
+          {formulario.errores.nombre}
+        </span>
         <input
           type="email"
           name="correo"
           placeholder="Escribe tu email"
-          title="Email incorrecto"
+          title="El correo es incorrecto"
           pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
           required
           value={formulario.correo}
           onChange={manejarCambios}
         />
+        <span
+          className={`formulario-contacto-error ${
+            formulario.errores.correo ? "is-active" : "none"
+          }`}
+        >
+          {formulario.errores.correo}
+        </span>
         <input
           type="text"
           name="asunto"
@@ -73,7 +117,13 @@ const ValidacionesDeFormulario = () => {
           value={formulario.asunto}
           onChange={manejarCambios}
         />
-        {/* Los textarea no aceptan un pattern cómo los input, pero usaremos un atributo data, y con jS validaremos este atributo */}
+        <span
+          className={`formulario-contacto-error ${
+            formulario.errores.asunto ? "is-active" : "none"
+          }`}
+        >
+          {formulario.errores.asunto}
+        </span>
         <textarea
           name="comentarios"
           cols="50"
@@ -85,6 +135,13 @@ const ValidacionesDeFormulario = () => {
           value={formulario.comentarios}
           onChange={manejarCambios}
         ></textarea>
+        <span
+          className={`formulario-contacto-error ${
+            formulario.errores.comentarios ? "is-active" : "none"
+          }`}
+        >
+          {formulario.errores.comentarios}
+        </span>
         <input type="submit" value="Enviar" />
       </form>
     </main>
