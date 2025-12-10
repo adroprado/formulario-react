@@ -16,7 +16,7 @@ const contactoInicial = {
   mensaje: null, // para la respuesta simulada del servidor
 };
 
-const ValidacionesDeFormulario = () => {
+const Formulario = () => {
   const [formulario, setFormulario] = useState(contactoInicial);
 
   const validaciones = (e) => {
@@ -58,13 +58,41 @@ const ValidacionesDeFormulario = () => {
     validaciones(e);
   };
 
+  // --- Manejando el envio de datos ---
   const manejarEnvio = (e) => {
     e.preventDefault();
+
+    // Verifica si AL MENOS UN elemento en el array de errores es diferente de null (es decir, es una cadena de error)
+    if (Object.values(formulario.errores).some((error) => error !== null)) {
+      return; // Si encontramos algún error, detenemos el envío
+    }
+
+    // Verifica que los campos del formulario no se encuentren vacíos
+    if (Object.values(formulario).some((campo) => campo === "")) {
+      return; // Si encontarmos un campo vacío, detenemos el envío
+    }
+
+    setFormulario({ ...formulario, carga: true }); // Indica que el componente CargadorDeespera debe cargar.
+
+    setTimeout(() => {
+      // 1. Ocultar Carga y Mostrar Mensaje de Éxito, y Limpiar Formulario
+      setFormulario({
+        ...contactoInicial, // Limia los campos del formulario
+        carga: false, // Ocultamos el cargador
+        mensaje: "Los datos han sido enviados con éxito", //Mostramos al usuario el mensaje
+      });
+
+      // Ocultar Mensaje después de 3000 ms
+      setTimeout(
+        () => setFormulario((prev) => ({ ...prev, mensaje: null })),
+        3000
+      );
+    }, 3000);
   };
 
   return (
     <main>
-      <a href="https://github.com/adroprado/formulario-react" target="_blank">
+      <a href="https://github.com/usuario/formulario-react" target="_blank">
         <img src="/src/assets/github.svg" alt="Github" />
       </a>
       <h2>Validaciones de Formulario</h2>
@@ -143,27 +171,22 @@ const ValidacionesDeFormulario = () => {
           {formulario.errores.comentarios}
         </span>
         <input type="submit" value="Enviar" />
+        {/* Conexión del Cargador: Muestra si formulario.carga es true
+         */}
+        {formulario.carga && (
+          <div className="formulario-contacto-cargador ">
+            <img src="/src/assets/oval.svg" alt="Cargando" />
+          </div>
+        )}
+        {/* Conexión del Mensaje: Muestra si formulario.mensaje es una cadena */}
+        {formulario.mensaje && (
+          <div className="formulario-contacto-respuesta ">
+            <p>{formulario.mensaje}</p>
+          </div>
+        )}
       </form>
     </main>
   );
 };
 
-const CargadorDeEspera = () => {
-  return (
-    <>
-      <div className="formulario-contacto-cargador none">
-        <img src="assets/oval.svg" alt="Cargando" />
-      </div>
-    </>
-  );
-};
-
-const Mensaje = () => {
-  return (
-    <div className="formulario-contacto-respuesta none">
-      <p>Los datos han sido enviados</p>
-    </div>
-  );
-};
-
-export default ValidacionesDeFormulario;
+export default Formulario;

@@ -1,10 +1,10 @@
 import "./App.css";
-import ValidacionesDeFormulario from "./componentes/ValidacionesDeFormulario";
+import Formulario from "./componentes/Formulario";
 
 function App() {
   return (
     <>
-      <ValidacionesDeFormulario />
+      <Formulario />
     </>
   );
 }
