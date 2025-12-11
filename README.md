@@ -1,16 +1,29 @@
-# React + Vite
+# Validación de Formulario
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Descripción
 
-Currently, two official plugins are available:
+Este código implementa una aplicación de validar un formulario, construida con **_React.js_**, enfocada en el manejo del **estado**, y la **inmutabilidad**. el cual usa **_patterns_** y pseudo-clases **_css_** que nos ayudan a validar los campos, conforme el usuario ingrese la información.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Herramientas
 
-## React Compiler
+- _CSS_
+  - ✅*Responsive*
+- _React_
+  - _jsx_
+  - _props_
+  - Renderizado condicional
+  - _useState (Hook)_
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Implementación
 
-## Expanding the ESLint configuration
+Evento **_onChange_**:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Manejo de datos en el estado cuando el usuario ingresa información en el formulario
+
+Evento **_onSubmit_**:
+
+- Uso se Pseudo-clases _*css*_ **_:valid_** e **_:invalid_** para aplicar estilos a elementos de formulario según si su contenido es válido o no.
+- Simulación de un **_loader_** cuando se procesa formulario
+- Simulación de respuesta del servidor con un mensaje personalizado
+
+Proyecto elaborado por [adroprado](https://github.com/adroprado)
