@@ -92,7 +92,7 @@ const Formulario = () => {
 
   return (
     <main>
-      <a href="https://github.com/usuario/formulario-react" target="_blank">
+      <a href="https://github.com/adroprado/formulario-react" target="_blank">
         <img src="/src/assets/github.svg" alt="Github" />
       </a>
       <h2>Validaciones de Formulario</h2>
