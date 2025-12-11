@@ -10,7 +10,6 @@ Este código implementa una aplicación de validar un formulario, construida con
   - ✅*Responsive*
 - _React_
   - _jsx_
-  - _props_
   - Renderizado condicional
   - _useState (Hook)_
 
